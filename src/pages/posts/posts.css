@@ -1,0 +1,45 @@
+.table{
+    color: white;
+    background: transparent;
+}
+.post_butns{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+    
+}
+.count{
+    font-weight: bold;
+    margin-top: 20px;
+}
+.but_post1{
+    padding: 5px 20px;
+    position: absolute;
+    margin-left: -100px;
+    border: 0;
+    border-radius: 10px;
+    background-color: rgb(175, 86, 18);
+    color: white;
+    font-weight: 600;
+    transition: 0.5s;
+    
+}
+.but_post1:hover{
+    scale: 1.1;
+}
+.but_post2{
+    padding: 5px 20px;
+    position: absolute;
+    margin-left: 100px;
+    border: 0;
+    border-radius: 10px;
+    background-color: rgb(175, 86, 18);
+    color: white;
+    font-weight: 600;
+    transition: 0.5s;
+}
+.but_post2:hover{
+    scale: 1.1;
+}
