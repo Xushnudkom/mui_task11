@@ -1,70 +1,139 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import './todos.css'
-const Todos = () => {
-    const [todos, setTodos] = useState ([])
-    const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(2)
-    useEffect(()=>{
-      axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`).then(response=>{
-        console.log(response);
-        setTodos(response.data)
-        
-      })
-    }, [page, limit])
-    const changePage=(type)=>{
-      if(type === "prev"){
-        if(page > 1){
-          setPage(prev => prev -1 )
+import { Card } from "@mui/material";
+import "./todos.css";
+import { CardTitle } from "reactstrap";
+import AddModal from "../../components/AddModal";
+import { useState } from "react";
+import TaskItem from "../../components/TaskItem";
 
-        }
-      }else{
-        setPage(prev => prev + 1)
-      }
-    }
+const Todos = () => {
+  const [tasks, setTasks] = useState([]);
+  console.log(tasks);
+
   return (
-    <>
-    <div className="row">
-      <div className="col-md-4">
-        <select onChange={(e)=>setLimit(e.target.value)} className="form-control my-2">
-          <option value="" selected>Select limit</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          
-        </select>
-      </div>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "50px 40px",
+        marginTop: "50px"
+      }}
+    >
+      <Card
+        style={{
+          maxWidth: "300px",
+          width: "100%",
+          marginLeft: "300px",
+          boxShadow: "2px 2px 2px 2px #bdbdbd"
+        }}
+      >
+        <CardTitle
+          style={{
+            padding: "10px",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          Open
+        </CardTitle>
+        {tasks
+          .filter((item) => item.status === "open")
+          .map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
+          ))}
+        <AddModal setTasks={setTasks} />
+      </Card>
+      <Card
+        style={{
+          maxWidth: "300px",
+          width: "100%",
+          boxShadow: "2px 2px 2px 2px #bdbdbd"
+        }}
+      >
+        <CardTitle
+          style={{
+            padding: "10px",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          Pending
+        </CardTitle>
+        {tasks
+          .filter((item) => item.status === "pending")
+          .map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
+          ))}
+        <AddModal setTasks={setTasks} />
+      </Card>
+      <Card
+        style={{
+          maxWidth: "300px",
+          width: "100%",
+          marginLeft: "300px",
+          boxShadow: "2px 2px 2px 2px #bdbdbd"
+        }}
+      >
+        <CardTitle
+          style={{
+            padding: "10px",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          InProgress
+        </CardTitle>
+        {tasks
+          .filter((item) => item.status === "inProgress")
+          .map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
+          ))}
+        <AddModal setTasks={setTasks} />
+      </Card>
+      <Card
+        style={{
+          maxWidth: "300px",
+          width: "100%",
+          boxShadow: "2px 2px 2px 2px #bdbdbd"
+        }}
+      >
+        <CardTitle
+          style={{
+            padding: "10px",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          Complete
+        </CardTitle>
+        {tasks
+          .filter((item) => item.status === "complete")
+          .map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
+          ))}
+        <AddModal setTasks={setTasks} />
+      </Card>
     </div>
-      <table className="table table-bordered  table-stripped ">
-        <thead>
-          <tr>
-            <th>userId</th>
-            <th>id</th>
-            <th>title</th>
-            <th>completed</th> 
-          </tr>
-        </thead>
-        <tbody>
-          {
-            todos.map((item, index)=>(
-              <tr key={index}>
-                <td>{item.userId}</td>
-                <td>{item.id}</td>
-                <td>{item.title}</td>
-                <td>{item.completed}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-      <div className="post_butns">
-        <button onClick={()=>changePage("prev")} className="but_post1">Prev</button>
-        <p className="count">{page}</p>
-        <button onClick={()=>changePage("next")} className="but_post2">Next</button>
-      </div>
-    </>
   );
-  }
-  
-  export default Todos
+};
+
+export default Todos;

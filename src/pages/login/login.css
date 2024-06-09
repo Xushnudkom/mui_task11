@@ -1,0 +1,22 @@
+.log_icon{
+  margin-left: 200px;
+  
+}
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.login2 {
+  max-width: 500px;
+  width: 100%;
+}
+.my-3{
+  padding: 0px 30px;
+}
